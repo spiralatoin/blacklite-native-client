@@ -1,0 +1,38 @@
+plugins {
+	id "java"
+	id "com.github.johnrengelman.shadow" version "6.1.0"
+}
+
+plugins {
+	id "com.diffplug.spotless" version "5.7.0"
+}
+
+repositories {
+	mavenLocal()
+	jcenter()
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+dependencies {
+	implementation 'org.graylog2.repackaged:natty:0.8-1'
+	implementation 'info.picocli:picocli:4.5.2'
+	implementation("org.xerial:sqlite-jdbc:3.32.3.2")
+	compileOnly("com.oracle.substratevm:svm:19.2.1")
+	implementation("org.graalvm.sdk:graal-sdk:20.2.0")
+	testImplementation("junit:junit:4.12")
+}
+
+def mainClassName = "com.tersesystems.blacklite.reader.BlackliteReader"
+
+jar {
+	manifest {
+		attributes "Main-Class": mainClassName
+	}
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+	main = mainClassName
+	classpath sourceSets.main.runtimeClasspath
+	classpath configurations.runtime
+}
