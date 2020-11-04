@@ -1,20 +1,28 @@
-This is an example of how to use sqlite with graalvm 20.0.0 native image
+# Blacklite Reader
 
-### Using on standard JVM 
-
-```
-./gradlew -q run
-It Works from SQLITE!!!
-```
-
-
-### Building and running from binary file
+## Date Processing
 
 ```
-$ ./native-image.sh
-> building jar
-> compiling binary
-...
-> running binary
-msg=It Works from SQLITE!!!, active=true
+./blacklite-reader \
+  --after="2020-11-03 19:22:09" \
+  --before="2020-11-03 19:22:11" \
+  --timezone=PST \
+  /tmp/blacklite/archive.2020-11-03-07-22.669.db
+```
+
+## Still dies with exception
+
+Anything with a "where clause" dies.
+
+```
+build/graal/blacklite-reader -c --where="limit > 10000" /tmp/blacklite/archive.db 
+```
+
+## Working with Binary Content
+
+Extract data using the `binary` flag and redirect to a file.
+
+```bash
+./blacklite-reader --binary /tmp/blacklite/archive.db > zarchive.zst
+zstd -d zarchive.zst 
 ```

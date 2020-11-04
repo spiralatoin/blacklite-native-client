@@ -13,8 +13,5 @@ mkdir -p build/graal
 echo "> compiling binary"
 native-image --no-server \
   -H:Path=./build/graal \
-  -H:Name=sqlite \
-  -cp ./build/libs/sqlite-all.jar
-
-echo "> running binary"
-./build/graal/sqlite
+  -H:Name=blacklite-reader \
+  -cp ./build/libs/blacklite-reader-all.jar

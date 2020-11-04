@@ -15,11 +15,18 @@ repositories {
 sourceCompatibility = JavaVersion.VERSION_11
 
 dependencies {
+	// Get rid of some unneeded dependencies here
 	implementation 'org.graylog2.repackaged:natty:0.8-1'
+
+	// Need to use https://picocli.info/picocli-on-graalvm.html
 	implementation 'info.picocli:picocli:4.5.2'
+	annotationProcessor 'info.picocli:picocli-codegen:4.5.2'
+
 	implementation("org.xerial:sqlite-jdbc:3.32.3.2")
+
 	compileOnly("com.oracle.substratevm:svm:19.2.1")
 	implementation("org.graalvm.sdk:graal-sdk:20.2.0")
+
 	testImplementation("junit:junit:4.12")
 }
 

@@ -19,6 +19,10 @@ class JNIReflectionClasses implements Feature {
 	@Override
 	public void beforeAnalysis(BeforeAnalysisAccess access) {
 		try {
+			// https://github.com/luben/zstd-jni/issues/115
+			// https://github.com/oracle/graal/blob/master/substratevm/JNI.md
+			// https://github.com/mageddo/graalvm-examples
+			// https://www.graalvm.org/reference-manual/native-image/JNI/
 			JNIRuntimeAccess.register(NativeDB.class.getDeclaredMethod("_open_utf8", byte[].class, int.class));
 		} catch (Exception e){
 			e.printStackTrace();
